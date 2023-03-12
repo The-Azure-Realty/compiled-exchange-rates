@@ -5,6 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  workflow_dispatch:
   schedule:
     # At minute 0 past every 4th hour.
     # https://crontab.guru/#0_*/4_*_*_*
