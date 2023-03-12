@@ -9,6 +9,9 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths:
+      - .github/workflows/cache-exchange-rates.yml
+
   schedule:
     # At minute 0 past every 4th hour.
     # https://crontab.guru/#0_*/4_*_*_*
