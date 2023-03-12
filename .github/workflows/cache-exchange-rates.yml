@@ -32,7 +32,7 @@ jobs:
           BASESYMBOL: ${{secrets.BASESYMBOL}}
         run: >-
           curl \
-            --request GET '${{API_URL}}?base=${{env.BASESYMBOL}}' \
+            --request GET '${{env.APIURL}}?base=${{env.BASESYMBOL}}' \
             --header 'apiKey: ${{env.APIKEY}}' \
             -o "rates.json"
             
