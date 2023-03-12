@@ -27,12 +27,13 @@ jobs:
     
     steps:
       - env:
-          EXCHANGERATESAPI_IO_APIKEY: ${{secrets.EXCHANGERATESAPI_IO_APIKEY}}
-          EXCHANGERATESAPI_IO_BASESYMBOL: ${{secrets.EXCHANGERATESAPI_IO_BASESYMBOL}}
+          APIURL: ${{secrets.APIURL}}
+          APIKEY: ${{secrets.APIKEY}}
+          BASESYMBOL: ${{secrets.BASESYMBOL}}
         run: >-
           curl \
-            --request GET 'https://api.apilayer.com/exchangerates_data/latest?base=${{env.EXCHANGERATESAPI_IO_BASESYMBOL}}' \
-            --header 'apiKey: ${{env.EXCHANGERATESAPI_IO_APIKEY}}' \
+            --request GET '${{API_URL}}?base=${{env.BASESYMBOL}}' \
+            --header 'apiKey: ${{env.APIKEY}}' \
             -o "rates.json"
             
 
