@@ -6,10 +6,19 @@ concurrency:
 
 on:
   workflow_dispatch:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
   schedule:
     # At minute 0 past every 4th hour.
     # https://crontab.guru/#0_*/4_*_*_*
     - cron: "0 */4 * * *"
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write      # to deploy to Pages
+  id-token: write   # to verify the deployment originates from an appropriate source
 
 jobs:
   CompileExchangeRates:
@@ -24,12 +33,13 @@ jobs:
           curl \
             --request GET 'https://api.apilayer.com/exchangerates_data/lates?base=${{env.EXCHANGERATESAPI_IO_BASESYMBOL}}' \
             --header 'apiKey: ${{env.EXCHANGERATESAPI_IO_APIKEY}}' \
-            -o "data/rates.json"
+            -o "rates.json"
             
-      - uses: actions/deploy-pages@v1
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: gituhub-pages
-          path: data/
+          path: ./
 
 
   PublishToGithubPages:
@@ -39,16 +49,14 @@ jobs:
     needs: 
       - CompileExchangeRates
 
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    
     # Deploy to the github-pages environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
