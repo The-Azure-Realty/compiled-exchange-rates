@@ -5,7 +5,7 @@ A scheduled job that retrieves and stores upto date compiled exchange rates for 
 ## Usage
 
 ```sh
-curl --request GET 'https://theazurerealty.github.io/compiled-exchage-rates/rates.json'
+curl --request GET 'https://the-azure-realty.github.io/compiled-exchange-rates/rates.json'
 ```
 
 ## Configuration
