@@ -32,12 +32,12 @@ jobs:
       - env:
           APIURL: ${{secrets.APIURL}}
           APIKEY: ${{secrets.APIKEY}}
-          BASESYMBOL: ${{secrets.BASESYMBOL}}
-        run: >-
-          curl \
-            --request GET '${{env.APIURL}}?base=${{env.BASESYMBOL}}' \
-            --header 'apiKey: ${{env.APIKEY}}' \
-            -o "rates.json"
+          BASESYMBOL: ${{vars.BASESYMBOL}}
+        run: |-
+          sh ./fetch-exchange-rates.bash \
+            ${{env.APIURL}} \
+            ${{env.BASESYMBOL}} \
+            ${{env.APIKEY}}
             
 
       - name: Upload artifact
