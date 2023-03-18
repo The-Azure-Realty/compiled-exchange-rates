@@ -35,7 +35,7 @@ jobs:
 
       - name: Display structure of downloaded files
         run: ls -R
-        
+
       - env:
           APIURL: ${{secrets.APIURL}}
           APIKEY: ${{secrets.APIKEY}}
@@ -99,5 +99,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ steps.generate-timestamp.outputs.timetamp }}
-          tag_name: ${{ steps.generate-timestamp.outputs.timetamp }}
+          name: ${{ steps.generate-timestamp.outputs.timestamp }}
+          tag_name: ${{ steps.generate-timestamp.outputs.timestamp }}
