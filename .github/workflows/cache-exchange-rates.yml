@@ -30,22 +30,25 @@ jobs:
     
     steps:
       
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Display structure of downloaded files
-        run: ls -R
-
-      - env:
+      - name: Fetch Rates
+        uses: indiesdev/curl@v1.1
+        id: response
+        env:
           APIURL: ${{secrets.APIURL}}
           APIKEY: ${{secrets.APIKEY}}
           BASESYMBOL: ${{vars.BASESYMBOL}}
-        run: |-
-          sh ./fetch-exchange-rates.bash \
-            ${{env.APIURL}} \
-            ${{env.BASESYMBOL}} \
-            ${{env.APIKEY}}
-
+        with:
+          url: ${{env.APIURL}}
+          params: '{ "base": "${{env.BASESYMBOL}}" }'
+          headers: '{ "apiKey": "${{env.APIKEY}}" }'
+          method: GET
+          accept: 200,201,204
+      
+      - name: create rates.json
+        run: |
+          echo ${{steps.request.outputs.response}} >> rates.json 
+          cat ./rates.json
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
