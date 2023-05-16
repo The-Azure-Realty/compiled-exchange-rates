@@ -43,6 +43,7 @@ jobs:
           headers: '{ "apiKey": "${{env.APIKEY}}" }'
           method: GET
           accept: 200,201,204
+          log-response: true
       
       - name: create rates.json
         run: |
