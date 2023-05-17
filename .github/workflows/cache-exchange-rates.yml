@@ -32,7 +32,7 @@ jobs:
       
       - name: Fetch Rates
         uses: indiesdev/curl@v1.1
-        id: response
+        id: request
         env:
           APIURL: ${{secrets.APIURL}}
           APIKEY: ${{secrets.APIKEY}}
