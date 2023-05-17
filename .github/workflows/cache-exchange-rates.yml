@@ -38,13 +38,14 @@ jobs:
           APIKEY: ${{secrets.APIKEY}}
           BASESYMBOL: ${{vars.BASESYMBOL}}
         with:
-          url: ${{env.APIURL}}
+          url: '${{env.APIURL}}'
           params: '{ "base": "${{env.BASESYMBOL}}" }'
           headers: '{ "apiKey": "${{env.APIKEY}}" }'
           method: GET
           accept: 200,201,204
           log-response: true
-      
+          timeout: 10000
+
       - name: create rates.json
         run: |
           echo '${{steps.request.outputs.response}}' | jq ".data" >> rates.json 
