@@ -47,7 +47,7 @@ jobs:
       
       - name: create rates.json
         run: |
-          echo ${{steps.request.outputs.response}} >> rates.json 
+          echo '${{steps.request.outputs.response}}' | jq ".data" >> rates.json 
           cat ./rates.json
       
       - name: Upload artifact
